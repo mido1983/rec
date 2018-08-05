@@ -70,7 +70,7 @@ get_header();
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
-                                    <div class="post-meta d-flex">
+                                    <div class="post-meta d-flex">  treee
                                         <div class="post-author-date-area d-flex">
                                             <!-- Post Author -->
                                             <div class="post-author">
