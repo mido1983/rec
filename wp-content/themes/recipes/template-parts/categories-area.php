@@ -13,38 +13,49 @@
 <section class="categories_area clearfix" id="about">
     <div class="container">
         <div class="row">
+            
+            <?php
+            $item_s_menu_image = get_field('item_s_menu_image', 'options');
+            $second_item_image = get_field('second_item_image', 'options');
+            $third_item_image = get_field('third_item_image', 'options');
+            ?>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-                    <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/catagory-img/1.jpg' ?>" alt="">
+                  <?php
+                  if( !empty($item_s_menu_image) ): ?>
+                      <img src="<?php echo $item_s_menu_image['url'] ?>" alt="<?php echo $item_s_menu_image['alt'] ?>">
+                  <?php endif; ?>
                     <div class="catagory-title">
-                        <a href="#">
-                            <h5>Food</h5>
+                        <a href="<?php echo get_field('item_s_menu_link','options')?>">
+                            <h5><?php echo get_field('item_s_menu_title','options')?></h5>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-                    <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/catagory-img/2.jpg'
-
-
-                    ?>" alt="">
+                  <?php
+                  if( !empty($second_item_image) ): ?>
+                      <img src="<?php echo $second_item_image['url'] ?>" alt="<?php echo $second_item_image['alt'] ?>">
+                  <?php endif; ?>
                     <div class="catagory-title">
-                        <a href="#">
-                            <h5>Cooking</h5>
+                        <a href="<?php echo get_field('second_item_link','options')?>">
+                            <h5><?php echo get_field('second_item_title','options')?></h5>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
-                    <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/catagory-img/3.jpg'
+                  <?php
+                  if( !empty($third_item_image) ): ?>
 
-
-                    ?>" alt="">
+                      <img src="<?php echo $third_item_image['url'] ?>" alt="<?php echo $third_item_image['alt'] ?>">
+  
+                  <?php endif; ?>
                     <div class="catagory-title">
-                        <a href="#">
-                            <h5>Life Style</h5>
+                        <a href="<?php echo get_field('third_item_link','options')?>">
+                            <h5><?php echo get_field('third_item_title','options')?></h5>
                         </a>
                     </div>
                 </div>

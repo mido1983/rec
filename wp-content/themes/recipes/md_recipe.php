@@ -68,9 +68,21 @@ get_header();
                         <div class="col-10 col-sm-11">
                             <div class="single-post">
                                 <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="img/blog-img/10.jpg" alt="">
-                                </div>
+  
+  
+                              <?php    if(get_field('') == TRUE){?>
+                                    <!--  do something-->
+                               <?php } ?>
+  
+                              <?php    if(get_field('heading_image') == TRUE){?>
+                                  <div class="post-thumb">
+                                      <img src="<?php echo get_field('heading_image')?>" alt="">
+                                  </div>
+                            <?php  } ?>
+
+                             
+                                
+                                
                                 <!-- Post Content -->
                                 <div class="post-content">
                                     <div class="post-meta d-flex">
@@ -88,23 +100,6 @@ get_header();
                                                 <a href="#"><?php the_field('post_date'); ?></a>
                                             </div>
                                         </div>
-
-
-                                        <!-- Post Comment & Share Area -->
-                                        <!--                                        <div class="post-comment-share-area d-flex">-->
-                                        <!--                                            <!-- Post Favourite -->
-                                        <!--                                            <div class="post-favourite">-->
-                                        <!--                                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>-->
-                                        <!--                                            </div>-->
-                                        <!--                                            <!-- Post Comments -->
-                                        <!--                                            <div class="post-comments">-->
-                                        <!--                                                <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>-->
-                                        <!--                                            </div>-->
-                                        <!--                                            <!-- Post Share -->
-                                        <!--                                            <div class="post-share">-->
-                                        <!--                                                <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
                                     </div>
 
                                     <h2 class="post-headline"><?php the_field('post_body_heading_h2'); ?></h2>
@@ -127,18 +122,24 @@ get_header();
                                   <?php
                                   if (have_rows('ingredients_list')):?>
                                       <ul class="mb-30">
-                                    <?php while (have_rows('ingredients_list')) : the_row(); ?>
-                                               <li><?php the_sub_field('ingredient'); ?> : <?php the_sub_field('ingredient_quantity'); ?></li>
-                                      <?php
-                                    endwhile;
-                                  else :
+                                    <?php
                                   
-                                  
-                                  endif; ?>
+
+                                
+                                   while (have_rows('ingredients_list')) : the_row();
+                                    ?>
+                                    
+                                  <li>
+             <?php
+             $term = get_sub_field('ingredient');
+             if( $term ==  TRUE){echo $term->name; } ?>
+                <?php    if(get_field('ingredient_quantity') == TRUE){
+                    echo ":";
+             } ?>
+             
+             <?php the_sub_field('ingredient_quantity'); ?></li>
+             <?php endwhile;    else :   endif; ?>
                                       </ul>
-                   
-  
-  
                                   <?php
   
                                   // check if the repeater field has rows of data
@@ -146,14 +147,23 @@ get_header();
     
                                     // loop through the rows of data
                                     while ( have_rows('post_single_rec_content_body') ) : the_row(); ?>
-
-                                 
+                                      <?php    if(get_sub_field('post_body_heading_h4') == TRUE){?>
                                             <h4><?php echo get_sub_field('post_body_heading_h4') ; ?></h4>
-                               
-                                      <?php the_sub_field('post_body_rec_text'); ?>
-                                        <img class="br-30 mb-30"
-                                             src="<?php the_sub_field('post_body_rec_image'); ?>"
-                                             alt="<?php echo get_sub_field('single_post_image_description');?>">
+                                      <?php } ?>
+
+                                      
+                                      <?php    if(get_sub_field('post_body_rec_text') == TRUE){?>
+                                        <?php echo get_sub_field('post_body_rec_text'); ?>
+                                      <?php } ?>
+  
+                                 
+                                      <?php    if(get_sub_field('post_body_rec_image') == TRUE){?>
+                                            <img class="br-30 mb-30"
+                                                 src="<?php the_sub_field('post_body_rec_image'); ?>"
+                                                 alt="<?php echo get_sub_field('single_post_image_description');?>">
+                                      <?php } ?>
+
+                                    
                                    <?php
                                     endwhile;
                                   else :
@@ -168,459 +178,140 @@ get_header();
                               <?php the_tags( '', '  ', '' ); ?>
                             </div>
 
+
+
+                         
+                            
+                            
+                            
+                            
+                            
                             <!-- Related Post Area -->
                             <div class="related-post-area section_padding_50">
                                 <h4 class="mb-30">Related post</h4>
-
                                 <div class="related-post-slider owl-carousel">
                                     <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="<?php echo get_site_url() . '/wp-content/themes/recipes/img/blog-img/15.jpg' ?>"
-                                                 alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
+                                  <?php
+                                  $post_tag = 'hot';
+                                  $the_query = new WP_Query( 'tag='.$post_tag );
+                                  if ( $the_query->have_posts() ) {
+                                    while ( $the_query->have_posts() ) {
+                                      $the_query->the_post(); ?>
+                                        <div class="single-post">
+                                            <!-- Post Thumb -->
+                                            <div class="post-thumb">
+                                              <?php  echo  get_the_post_thumbnail();?>
+                                            </div>
+                                            <!-- Post Content -->
+                                            <div class="post-content">
+                                                <div class="post-meta d-flex">
+                                                    <div class="post-author-date-area d-flex">
+                                                        <!-- Post Author -->
+                                                        <div class="post-author">
+                                                            <a href="#"><?php the_field('post_author'); ?></a>
+                                                        </div>
+                                                        <!-- Post Date -->
+                                                        <div class="post-date">
+                                                            <a href="#"><?php echo get_the_date(); ?></a>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <a href="<?php echo get_post_permalink(); ?>">
+                                                    <h6><?php the_field('head_post_title'); ?></h6>
+                                                </a>
                                             </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
                                         </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="<?php echo get_site_url() . '/wp-content/themes/recipes/img/blog-img/5.jpg' ?>"
-                                                 alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="<?php echo get_site_url() . '/wp-content/themes/recipes/img/blog-img/16.jpg' ?>"
-                                                 alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="<?php echo get_site_url() . '/wp-content/themes/recipes/img/blog-img/5.jpg' ?>"
-                                                 alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
+                                        <!-- Single Related Post-->
+                                 <?php   }
+                                  
+                                  } else {
+                                    // no posts found
+                                  }
+                                  /* Restore original Post Data */
+                                  wp_reset_postdata();
+                                  ?>
                                 </div>
                             </div>
-
                             <!-- Comment Area Start -->
                             <div class="comment_area section_padding_50 clearfix">
-                                <h4 class="mb-30">2 Comments</h4>
-
-                                <ol>
-                                    <!-- Single Comment Area -->
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="img/blog-img/17.jpg" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <span class="comment-date text-muted">27 Aug 2018</span>
-                                                <h5>Brandon Kelley</h5>
-                                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet,
-                                                    consectetur, adipisci velit, sed quia non numquam eius modi
-                                                    tempora.</p>
-                                                <a href="#">Like</a>
-                                                <a class="active" href="#">Reply</a>
-                                            </div>
-                                        </div>
-                                        <ol class="children">
-                                            <li class="single_comment_area">
-                                                <div class="comment-wrapper d-flex">
-                                                    <!-- Comment Meta -->
-                                                    <div class="comment-author">
-                                                        <img src="img/blog-img/18.jpg" alt="">
-                                                    </div>
-                                                    <!-- Comment Content -->
-                                                    <div class="comment-content">
-                                                        <span class="comment-date text-muted">27 Aug 2018</span>
-                                                        <h5>Brandon Kelley</h5>
-                                                        <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit
-                                                            amet, consectetur, adipisci velit, sed quia non numquam eius
-                                                            modi tempora.</p>
-                                                        <a href="#">Like</a>
-                                                        <a class="active" href="#">Reply</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="img/blog-img/19.jpg" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <span class="comment-date text-muted">27 Aug 2018</span>
-                                                <h5>Brandon Kelley</h5>
-                                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet,
-                                                    consectetur, adipisci velit, sed quia non numquam eius modi
-                                                    tempora.</p>
-                                                <a href="#">Like</a>
-                                                <a class="active" href="#">Reply</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
+                                <h4 class="mb-30">Нам важно Ваше мнение!</h4>
+                                <div class="fb-comments" data-href="http://bestfoodtrip.com" data-width="666" data-numposts="25"></div>
                             </div>
 
-                            <!-- Leave A Comment -->
-                            <div class="leave-comment-area section_padding_50 clearfix">
-                                <div class="comment-form">
-                                    <h4 class="mb-30">Leave A Comment</h4>
-
-                                    <!-- Comment Form -->
-                                    <form action="#" method="post">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="contact-name"
-                                                   placeholder="Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="contact-email"
-                                                   placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="contact-website"
-                                                   placeholder="Website">
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="message" id="message" cols="30"
-                                                      rows="10" placeholder="Message"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn contact-btn">Post Comment</button>
-                                    </form>
-                                </div>
-                            </div>
+                      
 
                         </div>
                     </div>
+                    
+                    
                 </div>
 
-                <!-- ****** Blog Sidebar ****** -->
+              <!-- ****** Blog Sidebar ****** -->
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                     <div class="blog-sidebar mt-5 mt-lg-0">
                         <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>About Me</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <img src="img/about-img/1.jpg" alt="">
-                            </div>
-                            <h4 class="font-shadow-into-light">Shopia Bernard</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt</p>
+                      
+                        <div class="single-widget-area about-me-widget section_padding_50 clearfix">
+                            
+                     
+                            
+                            <ul>
+                                <li><h5 class="font-shadow-into-light">Время Приготовления: <?php the_field('cooking_time'); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light">Колличество порций: <?php the_field('number_of_servings'); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light">Сложность: <?php the_field('complexity'); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light"><?php echo get_the_term_list( $post->ID, 'kitchen_taxonomy', 'Кухни: <br>', ' <br> ', '' ); ?>
+                                    </h5></li>
+                                <li><h5 class="font-shadow-into-light"><?php echo get_the_term_list( $post->ID, 'source', 'Источник: ', '', '' ); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light"><?php echo get_the_term_list( $post->ID, 'Occasion', 'Повод: <br>', ' | ', '' ); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light"><?php echo get_the_term_list( $post->ID, 'type_of_dish', 'Тип Блюда: <br>', ' | ', '' ); ?></h5></li>
+                                <li><h5 class="font-shadow-into-light">Опубликовано <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' назад'; ?></h5></li>
+                            </ul>
+                            
+                            <div><?php if(function_exists('pf_show_link')){echo pf_show_link();} ?></div>
                         </div>
 
-
+    
                         <div class="single-widget-area popular-post-widget">
                             <div class="widget-title text-center">
                                 <h6>Populer Post</h6>
                             </div>
                             <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/1.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Top Wineries To Visit In England</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/2.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>The 8 Best Gastro Pubs In Bath</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/3.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Zermatt Unplugged the best festival</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/4.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Harrogate's Top 10 Independent Eats</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/5.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Eating Out On A Budget In Oxford</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                        </div>
+                          <?php
+                          $post_tag = 'hot';
+                          $the_query = new WP_Query( 'tag='.$post_tag );
+                          if ( $the_query->have_posts() ) {
+                            while ( $the_query->have_posts() ) {
+                              $the_query->the_post(); ?>
 
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area add-widget text-center">
-                            <div class="add-widget-area">
-                                <img src="img/sidebar-img/6.jpg" alt="">
-                                <div class="add-text">
-                                    <div class="yummy-table">
-                                        <div class="yummy-table-cell">
-                                            <h2>Cooking Book</h2>
-                                            <p>Buy Book Online Now!</p>
-                                            <a href="#" class="add-btn">Buy Now</a>
-                                        </div>
+                                <!-- Single Popular Post -->
+                                <div class="single-populer-post d-flex">
+                          
+                                      <?php  echo  get_the_post_thumbnail();?>
+                             
+                                    <div class="post-content">
+                                        <a href="<?php echo get_post_permalink(); ?>">
+                                            <h6><?php the_field('head_post_title'); ?></h6>
+                                        </a>
+                                        <p><?php echo get_the_date(); ?></p>
                                     </div>
                                 </div>
-                            </div>
+                            <?php   }
+                          } else {
+                            // no posts found
+                          }
+                          /* Restore original Post Data */
+                          wp_reset_postdata();
+                          ?>
                         </div>
-
+                     
                         <!-- Single Widget Area -->
-                        <div class="single-widget-area newsletter-widget">
-                            <div class="widget-title text-center">
-                                <h6>Newsletter</h6>
-                            </div>
-                            <p>Subscribe our newsletter gor get notification about new updates, information discount,
-                                etc.</p>
-                            <div class="newsletter-form">
-                                <form action="#" method="post">
-                                    <input type="email" name="newsletter-email" id="email" placeholder="Your email">
-                                    <button type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+            
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- ****** Single Blog Area End ****** -->
-
-    <!-- ****** Instagram Area Start ****** -->
-    <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/1.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/2.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/3.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/4.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/5.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/6.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/1.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/2.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- ****** Our Creative Portfolio Area End ****** -->
 
 <?php
 get_footer();

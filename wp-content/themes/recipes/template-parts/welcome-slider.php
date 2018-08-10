@@ -12,84 +12,37 @@
 <section class="welcome-post-sliders owl-carousel">
 
     <!-- Single Slide -->
-    <div class="welcome-single-slide">
-        <!-- Post Thumb -->
-        <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/bg-img/slide-1.jpg' ?> " alt="">
-        <!-- Overlay Text -->
-        <div class="project_title">
-            <div class="post-date-commnents d-flex">
-                <a href="#">May 19, 2017</a>
-                <a href="#">5 Comment</a>
-            </div>
-            <a href="#">
-                <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-        </div>
-    </div>
+  
+  <?php
+  $post_tag = 'home_page_slider';
+  $the_query = new WP_Query( 'tag='.$post_tag );
+  if ( $the_query->have_posts() ) {
+    while ( $the_query->have_posts() ) {
+      $the_query->the_post(); ?>
 
-    <!-- Single Slide -->
-    <div class="welcome-single-slide">
-        <!-- Post Thumb -->
-        <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/bg-img/slide-2.jpg' ?>" alt="">
-        <!-- Overlay Text -->
-        <div class="project_title">
-            <div class="post-date-commnents d-flex">
-                <a href="#">May 19, 2017</a>
-                <a href="#">5 Comment</a>
-            </div>
-            <a href="#">
-                <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-        </div>
-    </div>
+        <!-- Single Popular Post -->
 
-    <!-- Single Slide -->
-    <div class="welcome-single-slide">
-        <!-- Post Thumb -->
-        <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/bg-img/slide-3.jpg' ?>" alt="">
-        <!-- Overlay Text -->
-        <div class="project_title">
-            <div class="post-date-commnents d-flex">
-                <a href="#">May 19, 2017</a>
-                <a href="#">5 Comment</a>
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+         <?php  echo  get_the_post_thumbnail();?>
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="<?php echo get_post_permalink(); ?>"><?php echo get_the_date(); ?></a>
+                    <a href="<?php echo get_post_permalink(); ?>">5 Comment</a>
+                </div>
+                <a href="<?php echo get_post_permalink(); ?>">
+                    <h5><?php the_field('head_post_title'); ?></h5>
+                </a>
             </div>
-            <a href="#">
-                <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
         </div>
-    </div>
-
-    <!-- Single Slide -->
-    <div class="welcome-single-slide">
-        <!-- Post Thumb -->
-        <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/bg-img/slide-4.jpg' ?>" alt="">
-        <!-- Overlay Text -->
-        <div class="project_title">
-            <div class="post-date-commnents d-flex">
-                <a href="#">May 19, 2017</a>
-                <a href="#">5 Comment</a>
-            </div>
-            <a href="#">
-                <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-        </div>
-    </div>
-
-    <!-- Single Slide -->
-    <div class="welcome-single-slide">
-        <!-- Post Thumb -->
-        <img src="<?php echo get_site_url().'/wp-content/themes/recipes/img/bg-img/slide-3.jpg' ?>" alt="">
-        <!-- Overlay Text -->
-        <div class="project_title">
-            <div class="post-date-commnents d-flex">
-                <a href="#">May 19, 2017</a>
-                <a href="#">5 Comment</a>
-            </div>
-            <a href="#">
-                <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-        </div>
-    </div>
+    <?php   }
+  } else {
+    // no posts found
+  }
+  /* Restore original Post Data */
+  wp_reset_postdata();
+  ?>
 
 </section>
 <!-- ****** Welcome Area End ****** -->

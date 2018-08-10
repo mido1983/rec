@@ -130,9 +130,9 @@ function recipes_scripts() {
 
 
       /*CSS*/
-      wp_enqueue_style( 'recipes-style', get_stylesheet_uri() );
-      wp_enqueue_style( 'style', get_template_directory_uri().'/css/style.css',array('recipes-style') );
-      wp_enqueue_style( 'responsive', get_template_directory_uri().'/css/responsive/responsive.css',array('recipes-style')  );
+wp_enqueue_style( 'recipes-style', get_stylesheet_uri() );
+wp_enqueue_style( 'style', get_template_directory_uri().'/css/style.css',array('recipes-style') );
+wp_enqueue_style( 'responsive', get_template_directory_uri().'/css/responsive/responsive.css',array('recipes-style')  );
 
 
       /*JS*/
@@ -186,36 +186,27 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 require get_template_directory() . '/inc/recipes-navwalker.php';
 
-/*
- *  ACF Options Page
- **/
+/**
+ * recipes Taxonomy.
+ */
+require get_template_directory() . '/inc/taxonomy.php';
 
-if( function_exists('acf_add_options_page') ) {
+/**
+ * recipes post-types.
+ */
+require get_template_directory() . '/inc/post-types.php';
 
-    acf_add_options_page(array(
-        'page_title' 	=> 'Theme General Settings',
-        'menu_title'	=> 'Theme Settings',
-        'menu_slug' 	=> 'theme-general-settings',
-        'capability'	=> 'edit_posts',
-        'redirect'		=> false
-    ));
+/**
+ * recipes functions.
+ */
+require get_template_directory() . '/inc/recipe-functions.php';
 
-    acf_add_options_sub_page(array(
-        'page_title' 	=> 'Theme Header Settings',
-        'menu_title'	=> 'Header',
-        'parent_slug'	=> 'theme-general-settings',
-    ));
+/**
+ * recipes-options-page.
+ */
+require get_template_directory() . '/inc/recipes-options-page.php';
 
-    acf_add_options_sub_page(array(
-        'page_title' 	=> 'Theme Footer Settings',
-        'menu_title'	=> 'Footer',
-        'parent_slug'	=> 'theme-general-settings',
-    ));
 
-    acf_add_options_sub_page(array(
-        'page_title' 	=> 'Post Social Media  Settings',
-        'menu_title'	=> 'Post Social Media',
-        'parent_slug'	=> 'theme-general-settings',
-    ));
 
-}
+
+

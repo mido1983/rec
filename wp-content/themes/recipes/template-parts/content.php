@@ -10,26 +10,91 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
 
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				recipes_posted_on();
-				recipes_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
-	</header><!-- .entry-header -->
+        <section class="archive-area section_padding_80">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Post -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
+                            <!-- Post Thumb -->
+                    
+                            <div class="post-thumb">
+                              <?php  recipes_post_thumbnail(); ?>
+                            </div>
+                            <!-- Post Content -->
+                       
+                              
+                                      <?php
+                                    
+  
+                                      if ( 'post' === get_post_type() ) :
+                                        ?>
+                            <div class="post-content">
+                                 <div class="post-meta d-flex">
+                                       <div class="post-author-date-area d-flex">
+                                              <div class="post-author">
+                                                  <a href="#"><?php  recipes_posted_by();?></a>
+                                              </div>
+                                              <div class="post-date">
+                                                  <a href="#"><?php  recipes_posted_on();?></a>
+                                              </div>
+     
+                                      <?php endif; ?>
+                                     
+                                        
+                                        <!-- Post Author -->
+                                    
+                                        <!-- Post Date -->
+                                      
+                               
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                      <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                        </div>
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                                        </div>
+                                       <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                    </div>
+                               
+                                 </div>
+                         
+  
+  
+  
+                              <?php   if ( is_singular() ) : ?>
 
-	<?php recipes_post_thumbnail(); ?>
+                                  <a href="<?php  echo get_post_permalink(); ?>">
+                                      <h4 class="post-headline"><?php the_title( );?></h4>
+                                  </a>
+                                  
+                            <?php  else : ?>
+                                  <a href="<?php  echo get_post_permalink(); ?>">
+                   <h4 class="post-headline"><?php the_title( );?></h4>
+                                  </a>
+                              
+                         <?php     endif;
+                              ?>
+                              
+                            </div>
+                        </div>
+                    </div>
+              
+     
+            </div>
+        </section>
+		
+
+
+
 
 	<div class="entry-content">
 		<?php
@@ -43,7 +108,7 @@
 					),
 				)
 			),
-			get_the_title()
+		get_the_title()
 		) );
 
 		wp_link_pages( array(
@@ -54,6 +119,6 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php recipes_entry_footer(); ?>
+		<?php // recipes_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
