@@ -35,3 +35,52 @@ function recipes_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'recipes_pingback_header' );
+
+
+/**
+ *  Счетчик просмотров поста
+ */
+
+function getPostViews($postID)
+{
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, TRUE);
+  if ($count == '') {
+    delete_post_meta($postID, $count_key);
+    add_post_meta($postID, $count_key, '0');
+    
+    return "0 просмотров";
+  }
+  
+  return $count . ' просмотров';
+}
+
+function setPostViews($postID)
+{
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, TRUE);
+  if ($count == '') {
+    $count = 0;
+    delete_post_meta($postID, $count_key);
+    add_post_meta($postID, $count_key, '0');
+  } else {
+    $count++;
+    update_post_meta($postID, $count_key, $count);
+  }
+}
+
+add_filter('manage_posts_columns', 'posts_column_views');
+add_action('manage_posts_custom_column', 'posts_custom_column_views', 5, 2);
+function posts_column_views($defaults)
+{
+  $defaults[ 'post_views' ] = __('просмотров');
+  
+  return $defaults;
+}
+
+function posts_custom_column_views($column_name, $id)
+{
+  if ($column_name === 'post_views') {
+    echo getPostViews(get_the_ID());
+  }
+}

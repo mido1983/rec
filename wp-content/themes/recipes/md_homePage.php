@@ -27,5 +27,5 @@ get_header();
        
 
         endwhile; // End of the loop.
-
+ setPostViews(get_the_ID());
 get_footer();

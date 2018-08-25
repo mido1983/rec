@@ -24,17 +24,27 @@
 
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-         <?php  echo  get_the_post_thumbnail();?>
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="<?php echo get_post_permalink(); ?>"><?php echo get_the_date(); ?></a>
-                    <a href="<?php echo get_post_permalink(); ?>">5 Comment</a>
-                </div>
-                <a href="<?php echo get_post_permalink(); ?>">
-                    <h5><?php the_field('head_post_title'); ?></h5>
-                </a>
-            </div>
+         <?php
+         if(get_field('home_page_carousel_image')== TRUE){ ?>
+             <img src="<?php echo get_field('home_page_carousel_image')?>" alt="">
+             <!-- Overlay Text -->
+             <div class="project_title">
+                 <div class="post-date-commnents d-flex">
+                     <a href="<?php echo get_post_permalink(); ?>"><?php echo get_the_date(); ?></a>
+                     <a href="<?php echo get_post_permalink(); ?>">5 Comment</a>
+                 </div>
+                 <a href="<?php echo get_post_permalink(); ?>">
+                     <h5><?php the_field('head_post_title'); ?></h5>
+                 </a>
+             </div>
+         
+        <?php } else{
+         
+         }
+         
+         
+         ?>
+        
         </div>
     <?php   }
   } else {

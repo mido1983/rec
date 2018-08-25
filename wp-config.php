@@ -21,8 +21,8 @@
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 
-define( ‘WP_DEBUG’, true );
-define( ‘WP_DEBUG_LOG’, true );
+define( ‘WP_DEBUG’, FALSE );
+define( ‘WP_DEBUG_LOG’, TRUE );
 define('DB_NAME', 'recipes2');
 
 /** MySQL database username */
@@ -80,7 +80,7 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', TRUE);
+
 
 /* That's all, stop editing! Happy blogging. */
 

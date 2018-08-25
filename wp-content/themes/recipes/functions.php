@@ -154,6 +154,10 @@ wp_enqueue_style( 'responsive', get_template_directory_uri().'/css/responsive/re
 }
 add_action( 'wp_enqueue_scripts', 'recipes_scripts' );
 
+
+
+
+
 /**
  * Implement the Custom Header feature.
  */
@@ -205,7 +209,6 @@ require get_template_directory() . '/inc/recipe-functions.php';
  * recipes-options-page.
  */
 require get_template_directory() . '/inc/recipes-options-page.php';
-
 
 
 

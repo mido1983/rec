@@ -32,37 +32,31 @@
                             setup_postdata( $post );
                             ?>
                               <!-- Single Popular Post -->
-                              <div class="post-thumb">
-                                  <img src="<?php // echo get_the_post_thumbnail(); ?>">
-                                <?php
-//                                $y = wp_get_attachment_image();
-                                //                                var_dump($y);
-                                
-                                
-                                  echo   get_the_post_thumbnail();?>
+                              <div class="post-thumb ">
+                               <?php   echo   get_the_post_thumbnail();?>
                               </div>
                               <!-- Post Content -->
                               <div class="post-content">
                                   <div class="post-meta d-flex">
                                       <div class="post-author-date-area d-flex">
                                           <!-- Post Author -->
-                                          <div class="post-author">
-                                              <a href="#"><?php  echo    get_field('post_author',  $post->ID); ?></a>
-                                          </div>
+<!--                                          <div class="post-author">-->
+<!--                                              <a href="#">--><?php // echo    get_field('post_author',  $post->ID); ?><!--</a>-->
+<!--                                          </div>-->
                                           <!-- Post Date -->
-                                          <div class="post-date">
-                                              <a href="#"><?php echo get_the_date(); ?></a>
-                                          </div>
+<!--                                          <div class="post-date">-->
+<!--                                              <a href="#">--><?php //echo get_the_date(); ?><!--</a>-->
+<!--                                          </div>-->
                                       </div>
                                       <!-- Post Comment & Share Area -->
                                       <div class="post-comment-share-area d-flex">
                                           <!-- Post Favourite -->
                                           <div class="post-favourite">
-                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>  <?php echo getPostViews(get_the_ID()); ?></a>
                                           </div>
                                           <!-- Post Comments -->
                                           <div class="post-comments">
-                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> <span class="fb-comments-count" data-href="<?php get_the_permalink($post->ID)?>"></span></a>
                                           </div>
                                           <!-- Post Share -->
                                           <div class="post-share">
@@ -85,7 +79,7 @@
                                       echo    get_field('recipe_long_excerpt',  $post->ID);
                                     }
                                     ?></p>
-                                  <a href="<?php echo get_post_permalink(); ?>" class="read-more">Читать дальше...</a>
+                                  <a href="<?php echo get_post_permalink(); ?>" class="read-more"><?php _e('Читать дальше...')?></a>
                               </div>
                             <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
                           <?php endif; ?>
@@ -101,7 +95,7 @@
 
 
                       <!-- Single Post -->
-                      <div class="col-12 col-md-6">
+                      <div class="col-12 col-md-6 ">
                           <div class="single-post wow fadeInUp" data-wow-delay=".4s">
                               <!-- Post Thumb -->
                               <div class="post-thumb">
@@ -109,26 +103,31 @@
                               </div>
                               <!-- Post Content -->
                               <div class="post-content">
+                                  <a href="<?php the_permalink();  ?>" title="<?php the_title(); ?>">
+                                      <h4 class="post-headline hp_post_heading"><?php the_title(); ?></h4>
+                                  </a>
                                   <div class="post-meta d-flex">
+                                     
                                       <div class="post-author-date-area d-flex">
+                                          
                                           <!-- Post Author -->
-                                          <div class="post-author">
-                                              <a href="#">By Marian</a>
-                                          </div>
+<!--                                          <div class="post-author">-->
+<!--                                              <a href="#">--><?php // echo    get_field('post_author',  $post->ID); ?><!--</a>-->
+<!--                                          </div>-->
                                           <!-- Post Date -->
-                                          <div class="post-date">
-                                              <a href="#">May 19, 2017</a>
-                                          </div>
+<!--                                          <div class="post-date">-->
+<!--                                              <a href="#">May 19, 2017</a>-->
+<!--                                          </div>-->
                                       </div>
                                       <!-- Post Comment & Share Area -->
                                       <div class="post-comment-share-area d-flex">
                                           <!-- Post Favourite -->
                                           <div class="post-favourite">
-                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>  <?php echo getPostViews(get_the_ID()); ?></a>
                                           </div>
                                           <!-- Post Comments -->
                                           <div class="post-comments">
-                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i><span class="fb-comments-count" data-href="<?php get_the_permalink($post->ID)?>"></span></a>
                                           </div>
                                           <!-- Post Share -->
                                           <div class="post-share">
@@ -136,9 +135,7 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <a href="<?php the_permalink();  ?>" title="<?php the_title(); ?>">
-                                      <h4 class="post-headline"><?php the_title(); ?></h4>
-                                  </a>
+                                
                               </div>
                           </div>
                       </div>
@@ -153,7 +150,9 @@
 
                     <!-- Single Post -->
 
-
+<!--                    <div class="second_post_blog_hp wow">-->
+<!--                        <h3>second block</h3>-->
+<!--                    </div>-->
                     <!-- Random posts 2 -->
   
                   <?php $posts = get_posts('orderby=rand&numberposts=5');
@@ -164,31 +163,36 @@
                       <div class="col-12">
                           <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
                               <!-- Post Thumb -->
+                         
                               <div class="post-thumb">
                                 <?php   echo  get_the_post_thumbnail();?>
                               </div>
                               <!-- Post Content -->
                               <div class="post-content">
+                                  <a href="#">
+                                      <h4 class="post-headline"><?php the_title(); ?></h4>
+                                  </a>
                                   <div class="post-meta d-flex">
+                               
                                       <div class="post-author-date-area d-flex">
                                           <!-- Post Author -->
-                                          <div class="post-author">
-                                              <a href="#">By Marian</a>
-                                          </div>
+<!--                                          <div class="post-author">-->
+<!--                                              <a href="#">--><?php // echo    get_field('post_author',  $post->ID); ?><!--</a>-->
+<!--                                          </div>-->
                                           <!-- Post Date -->
-                                          <div class="post-date">
-                                              <a href="#">May 19, 2017</a>
-                                          </div>
+<!--                                          <div class="post-date">-->
+<!--                                              <a href="#">May 19, 2017</a>-->
+<!--                                          </div>-->
                                       </div>
                                       <!-- Post Comment & Share Area -->
-                                      <div class="post-comment-share-area d-flex">
+                                      <div class="post-comment-share-area d-flex _hp_post_second_area">
                                           <!-- Post Favourite -->
                                           <div class="post-favourite">
-                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                              <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>  <?php echo getPostViews(get_the_ID()); ?></a>
                                           </div>
                                           <!-- Post Comments -->
                                           <div class="post-comments">
-                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                                              <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> <span class="fb-comments-count" data-href="<?php get_the_permalink($post->ID)?>"></span></a>
                                           </div>
                                           <!-- Post Share -->
                                           <div class="post-share">
@@ -196,9 +200,7 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <a href="#">
-                                      <h4 class="post-headline"><?php the_title(); ?></h4>
-                                  </a>
+                              
                                   <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
                                   <a href="#" class="read-more">Continue Reading..</a>
                               </div>
@@ -258,7 +260,38 @@
 
                     <!-- Single Widget Area -->
 
-                
+                    <div class="single-widget-area popular-post-widget">
+                        <div class="widget-title text-center">
+                            <h6>Populer erer  Post</h6>
+                        </div>
+                        <!-- Single Popular Post -->
+                      <?php
+                      $post_tag = 'hot';
+                      $the_query = new WP_Query( 'tag='.$post_tag );
+                      if ( $the_query->have_posts() ) {
+                        while ( $the_query->have_posts() ) {
+                          $the_query->the_post(); ?>
+
+                            <!-- Single Popular Post -->
+                            <div class="single-populer-post d-flex">
+              
+                              <?php  echo  get_the_post_thumbnail();?>
+
+                                <div class="post-content">
+                                    <a href="<?php echo get_post_permalink(); ?>">
+                                        <h6><?php the_field('head_post_title'); ?></h6>
+                                    </a>
+                                    <p><?php echo get_the_date(); ?></p>
+                                </div>
+                            </div>
+                        <?php   }
+                      } else {
+                        // no posts found
+                      }
+                      /* Restore original Post Data */
+                      wp_reset_postdata();
+                      ?>
+                    </div>
 
                  
                 </div>

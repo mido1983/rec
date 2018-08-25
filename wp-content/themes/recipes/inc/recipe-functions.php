@@ -75,3 +75,44 @@ function add_custom_field_automatically($post_ID) {
   }
 }
 
+/**
+ * Скрываем визуальный редактор в админке для шаблона "POST"
+ *
+ */
+function onwp_disable_content_editor() {
+$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  if( !isset( $post_id ) ) return;
+  $template_file = get_post_meta($post_id, '_wp_page_template', true);
+    remove_post_type_support( 'post', 'editor' );
+}
+
+add_action( 'admin_init', 'onwp_disable_content_editor' );
+
+/*
+ * настройки плагина "рейтинг"
+ */
+//
+//add_filter( 'wp_postratings_schema_itemtype', 'wp_postratings_schema_itemtype' );
+//function wp_postratings_schema_itemtype( $itemtype ) {
+//  return 'itemscope itemtype="http://schema.org/Recipe"';
+//}
+//add_filter( 'wp_postratings_site_logo', 'wp_postratings_site_logo' );
+//function wp_postratings_site_logo( $url ) {
+//  return 'http://placehold.it/350/150.png';
+//}
+function custom_rating_image_extension() {
+  return 'png';
+}
+add_filter( 'wp_postratings_image_extension', 'custom_rating_image_extension' );
+
+add_action('admin_head', 'acf_table_styles');
+add_action('admin_head', 'acf_table_styles');
+
+function acf_table_styles() {
+  echo '<style>
+    .acf-table-header-cont,
+    .acf-table-body-cont {
+        white-space: pre-line;
+    }
+  </style>';
+}

@@ -20,6 +20,11 @@ if( function_exists('acf_add_options_page') ) {
   'capability'	=> 'edit_posts',
   'redirect'		=> false
   ));
+  acf_add_options_sub_page(array(
+  'page_title' 	=> 'GLOBAL SITE SEO ',
+  'menu_title'	=> 'Global Site SEO',
+  'parent_slug'	=> 'theme-general-settings',
+  ));
   
   acf_add_options_sub_page(array(
   'page_title' 	=> 'Theme Header Settings',
@@ -45,4 +50,5 @@ if( function_exists('acf_add_options_page') ) {
   'parent_slug'	=> 'theme-general-settings',
   ));
   
+
 }
